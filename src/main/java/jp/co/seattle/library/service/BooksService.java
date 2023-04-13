@@ -30,10 +30,15 @@ public class BooksService {
 	 * @return 書籍リスト
 	 */
 	public List<BookInfo> getBookList() {
+		//Listに格納されたデータは整理され、順番通りに並べられる。データを追加、削除しても、自動的に整列してくれる。
+		//追加された書籍情報をリスト化している
 
 		// TODO 書籍名の昇順で書籍情報を取得するようにSQLを修正（タスク３）
 		List<BookInfo> getedBookList = jdbcTemplate.query(
-				"",
+				//ListをBookInfo型で宣言。queryは問い合わせ
+				"SELECT * FROM books ORDER BY title ASC ; ",
+				//booksテーブルのレコードを昇順で表示している、ASCが昇順、DESCが降順
+				//*だと、全列を指定。"name"とかだと１つの列ごとに指定。
 				new BookInfoRowMapper());
 
 		return getedBookList;

@@ -33,7 +33,8 @@
             </c:if>
             <div>
                 <div class="booklist">
-                    <c:forEach var="bookInfo" items="">
+                    <c:forEach var="bookInfo" items="${bookList}">
+                    //繰り返し処理の対象がitems、それを格納する書籍情報
                         <div class="books">
                             <form method="get" class="book_thumnail" action="editBook">
                                 <a href="javascript:void(0)" onclick="this.parentNode.submit();"> <c:if test="${empty bookInfo.thumbnail}">
