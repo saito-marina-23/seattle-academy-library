@@ -41,5 +41,4 @@ public class HomeController {
 		//bookListにbookの値を飛ばす。bookListはjspに書いたやつ
 		return "home";
 	}
-
 }
