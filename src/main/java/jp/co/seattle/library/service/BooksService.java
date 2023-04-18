@@ -61,7 +61,13 @@ public class BooksService {
 	 */
 	public int registBook(BookDetailsInfo bookInfo) {
 		// TODO 取得した書籍情報を登録し、その書籍IDを返却するようにSQLを修正（タスク４）
-		String sql = "";
+		String sql = "INSERT INTO books(title,author,publisher,publish_date,thumbnail_name,thumbnail_url,isbn,description,reg_date,upd_date)"
+				+ " VALUES(?,?,?,?,?,?,?,?,CURRENT_DATE,CURRENT_DATE) returning id;";
+
+		//INSERT INTO テーブル名(列名１,列名2) VALUES（値１,値2） Insert演習
+		//booksテーブルに列を作成して、そこに値を入れてあげたい。
+		//valuseに値を指定すると変更された際に困るので（？）を入れるらしい。
+		//returning idでIDを返却する部分。
 
 		int bookId = jdbcTemplate.queryForObject(sql, int.class, bookInfo.getTitle(), bookInfo.getAuthor(),
 				bookInfo.getPublisher(), bookInfo.getPublishDate(), bookInfo.getThumbnailName(),
