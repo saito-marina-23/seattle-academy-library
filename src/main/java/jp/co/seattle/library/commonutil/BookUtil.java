@@ -30,19 +30,18 @@ public class BookUtil {
 		//TODO　各チェックNGの場合はエラーメッセージをリストに追加（タスク４）
 		List<String> errorList = new ArrayList<>();
 		// 必須チェック
-		if (isEmptyBookInfo(bookInfo) == false) {
-			//89行メソッドの呼び出し、！で反転
+		if (isEmptyBookInfo(bookInfo)) {
+			//89行メソッドの呼び出し
 			errorList.add(REQUIRED_ERROR);
 		}
 
 		// ISBNのバリデーションチェック
-		//他のとこで似た書き方を見つける
-		if (isValidIsbn(bookInfo.getIsbn()) == false) {
+		if (!isValidIsbn(bookInfo.getIsbn())) {
 			errorList.add(ISBN_ERROR);
 		}
 
 		// 出版日の形式チェック  
-		if (checkDate(bookInfo.getPublishDate()) == false) {
+		if (!checkDate(bookInfo.getPublishDate())) {
 			errorList.add(PUBLISHDATE_ERROR);
 		}
 
@@ -60,8 +59,13 @@ public class BookUtil {
 			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 			formatter.setLenient(false); // ←これで厳密にチェックしてくれるようになる
 			//TODO　取得した日付の形式が正しければtrue（タスク４）
-			formatter.parse(publishDate);
-			return true;
+			//Date型2をString型3に変更
+			String date3 = formatter.format(formatter.parse(publishDate));
+			//String型で比較(publishDate==strdate)1と3
+			if (publishDate.equals(date3)) {
+				return true;
+			}
+			return false;
 		} catch (Exception p) {
 			p.printStackTrace();
 			return false;
@@ -76,7 +80,7 @@ public class BookUtil {
 	 */
 	private static boolean isValidIsbn(String isbn) {
 		//isValidIsbnがメソッド名、34行で呼び出される
-		if (isbn.length() > 0) {
+		if (!isbn.isEmpty()) {
 			if (isbn.matches("^[0-9]{10}||{13}+$")) {
 				return true;
 			}
@@ -95,10 +99,10 @@ public class BookUtil {
 	private static boolean isEmptyBookInfo(BookDetailsInfo bookInfo) {
 		//TODO　タイトル、著者、出版社、出版日のどれか一つでもなかったらtrue（タスク４）
 		//if((!bookInfo.getTitle().isEmpty())){メソッドを入れなきゃいけないから違う方法模索
-		if (bookInfo.getTitle().length() != 0 && bookInfo.getAuthor().length() != 0
-				&& bookInfo.getPublisher().length() != 0 && bookInfo.getPublishDate().length() != 0) {
-			return true;
+		if ((!bookInfo.getTitle().isEmpty()) && (!bookInfo.getAuthor().isEmpty())
+				&& (!bookInfo.getPublisher().isEmpty()) && (!bookInfo.getPublishDate().isEmpty())) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 }
