@@ -64,7 +64,6 @@ public class BooksService {
 		String sql = "INSERT INTO books(title,author,publisher,publish_date,thumbnail_name,thumbnail_url,isbn,description,reg_date,upd_date)"
 				+ " VALUES(?,?,?,?,?,?,?,?,CURRENT_DATE,CURRENT_DATE) returning id;";
 
-
 		int bookId = jdbcTemplate.queryForObject(sql, int.class, bookInfo.getTitle(), bookInfo.getAuthor(),
 				bookInfo.getPublisher(), bookInfo.getPublishDate(), bookInfo.getThumbnailName(),
 				bookInfo.getThumbnailUrl(), bookInfo.getIsbn(), bookInfo.getDescription());
