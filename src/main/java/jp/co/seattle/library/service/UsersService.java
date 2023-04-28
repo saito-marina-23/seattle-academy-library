@@ -52,4 +52,16 @@ public class UsersService {
 		}
 	}
 
+	/**
+	 * ユーザー情報取得
+	 * 
+	 * @param userInfo パスワード
+	 * @return ユーザー情報
+	 */
+	// TODO 取得したパスワードを更新するようにSQLを修正
+	public void updatePassword(UserInfo userInfo) {
+		String sql;
+		sql = "UPDATE users SET password =? WHERE id";
+		jdbcTemplate.update(sql);
+	}
 }
